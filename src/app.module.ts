@@ -6,9 +6,10 @@ import { PrismaService } from './database/prisma/prisma.service';
 import { UsersModule } from './users/users.module';
 import { BadgesModule } from './badges/badges.module';
 import { ProductsModule } from './products/products.module';
+import { OrderModule } from './order/order.module';
 
 @Module({
-  imports: [ConfigModule.forRoot(), UsersModule, BadgesModule, ProductsModule],
+  imports: [ConfigModule.forRoot(), UsersModule, BadgesModule, ProductsModule, OrderModule],
   controllers: [AppController],
   providers: [AppService, PrismaService],
 })
