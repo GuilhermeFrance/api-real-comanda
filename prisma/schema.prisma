@@ -42,7 +42,7 @@ model Order {
   key         String     @unique
   price       Decimal
   products    Products[]
-  productsKey String?
+  productsKey String[]
   tables      Table?
 }
 
