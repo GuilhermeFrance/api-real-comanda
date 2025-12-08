@@ -1,0 +1,17 @@
+services:
+
+    db:
+        build: .docker/postgresql
+        container_name: real-comanda
+        restart: always
+        tty: true
+        volumes:
+            - dbdata:/var/lib/postgresql/dbdata
+        ports:
+            - "5432:5432"
+        environment:
+            - POSTGRES_PASSWORD=admin
+            - POSTGRES_DB=real-comanda
+
+volumes:
+    dbdata:

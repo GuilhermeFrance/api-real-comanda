@@ -1,0 +1,26 @@
+generator client {
+  provider     = "prisma-client"
+  output       = "../generated/prisma"
+  moduleFormat = "cjs"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id        Int     @id @default(autoincrement())
+  firstName String
+  surname   String
+  cpf       String  @unique
+  badge     Badge?   @relation(fields: [badgesKey], references: [key])
+  badgesKey String?
+}
+
+model Badge {
+  id    Int    @id @default(autoincrement())
+  name  String @unique
+  key   String @unique
+  users User[]
+}
+
