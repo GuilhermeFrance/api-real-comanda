@@ -13,8 +13,9 @@ model User {
   firstName String
   surname   String
   cpf       String  @unique
-  badge     Badge?   @relation(fields: [badgesKey], references: [key])
+  badge     Badge?  @relation(fields: [badgesKey], references: [key])
   badgesKey String?
+  tables    Table[]
 }
 
 model Badge {
@@ -24,3 +25,32 @@ model Badge {
   users User[]
 }
 
+model Table {
+  id            Int     @id @default(autoincrement())
+  name          String  @unique
+  key           String  @unique
+  attendantUser User    @relation(fields: [userId], references: [id])
+  userId        Int
+  isBusy        Boolean @default(false)
+  order         Order   @relation(fields: [orderId], references: [id])
+  orderId       Int     @unique
+}
+
+model Order {
+  id          Int        @id @default(autoincrement())
+  name        String     @unique
+  key         String     @unique
+  price       Decimal
+  products    Products[]
+  productsKey String?
+  tables      Table?
+}
+
+model Products {
+  id      Int     @id @default(autoincrement())
+  name    String  @unique
+  key     String  @unique
+  price   Decimal
+  order   Order?  @relation(fields: [orderId], references: [id])
+  orderId Int?
+}
