@@ -6,5 +6,4 @@ export class CreateProductDto implements Products {
   id: number;
   key: string;
   price: Decimal;
-  orderId: number | null;
 }

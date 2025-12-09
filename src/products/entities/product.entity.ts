@@ -5,5 +5,4 @@ export class ProductEntity {
   id: number;
   key: string;
   price: Decimal;
-  orderId: number | null;
 }

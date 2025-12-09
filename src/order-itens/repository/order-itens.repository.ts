@@ -8,6 +8,33 @@ import { UpdateOrderItenDto } from '../dto/update-order-iten.dto';
 export class OrderItensRepository {
   constructor(private readonly prisma: PrismaService) {}
 
+  async calculateTotalPrice(orderId: number): Promise<number> {
+    const orderWithItens = await this.prisma.order.findUnique({
+      where: { id: orderId },
+      include: {
+        items: {
+          include: {
+            products: {
+              select: {
+                price: true,
+              },
+            },
+          },
+        },
+      },
+    });
+    if (!orderWithItens) {
+      throw new NotFoundException(`Order with id ${orderId} not found`);
+    }
+
+    const total = orderWithItens.items.reduce((accumulator, item) => {
+      const productPrice = item.products.price.toNumber();
+      const itemSubtotal = productPrice * item.quantity;
+      return accumulator + itemSubtotal;
+    }, 0);
+    return total;
+  }
+
   async create(data: CreateOrderItenDto): Promise<OrderItensEntity> {
     return await this.prisma.orderItems.create({
       data,

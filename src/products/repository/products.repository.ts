@@ -14,6 +14,20 @@ export class ProductRepository {
     });
   }
 
+  async getPrice(id: number): Promise<number> {
+    const price = await this.prisma.products.findUnique({
+      where: { id },
+      select: {
+        price: true,
+      },
+    });
+    if (!price) {
+      throw new NotFoundException('Produto não encontrado');
+    }
+    const priceNumber = price.price.toNumber();
+    return priceNumber;
+  }
+
   async findAll(): Promise<ProductEntity[]> {
     return await this.prisma.products.findMany();
   }
