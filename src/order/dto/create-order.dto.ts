@@ -6,5 +6,5 @@ export class CreateOrderDto implements Order {
   id: number;
   key: string;
   price: Decimal;
-  productsKey: string | null;
+  productsKey: string[];
 }

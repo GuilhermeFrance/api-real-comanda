@@ -5,5 +5,5 @@ export class OrderEntity {
   id: number;
   key: string;
   price: Decimal;
-  productsKey: string | null;
+  productsKey: string[];
 }
