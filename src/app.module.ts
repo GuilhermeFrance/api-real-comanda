@@ -8,9 +8,10 @@ import { BadgesModule } from './badges/badges.module';
 import { ProductsModule } from './products/products.module';
 import { OrderModule } from './order/order.module';
 import { TableModule } from './table/table.module';
+import { OrderItensModule } from './order-itens/order-itens.module';
 
 @Module({
-  imports: [ConfigModule.forRoot(), UsersModule, BadgesModule, ProductsModule, OrderModule, TableModule],
+  imports: [ConfigModule.forRoot(), UsersModule, BadgesModule, ProductsModule, OrderModule, TableModule, OrderItensModule],
   controllers: [AppController],
   providers: [AppService, PrismaService],
 })

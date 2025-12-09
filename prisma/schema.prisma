@@ -37,21 +37,22 @@ model Table {
 }
 
 model Order {
-  id          Int          @id @default(autoincrement())
-  name        String       @unique
-  key         String       @unique
-  price       Decimal
-  tables      Table?
-  items       OrderItems[]
+  id     Int          @id @default(autoincrement())
+  name   String       @unique
+  key    String       @unique
+  price  Decimal
+  tables Table?
+  items  OrderItems[]
 }
 
 model OrderItems {
   id         Int      @id @default(autoincrement())
   orderId    Int
-  product    Products[]
-  productsId Int[]
+  productsId Int
+  products Products @relation(fields: [productsId], references: [id])
   quantity   Int
   order      Order    @relation(fields: [orderId], references: [id])
+
 }
 
 model Products {
