@@ -13,6 +13,9 @@ export class TableService {
   findAll() {
     return this.repository.findAll();
   }
+  createWithOrder(createTableDto: CreateTableDto) {
+    return this.repository.createTableWithOrder(createTableDto);
+  }
 
   findOne(id: number) {
     return this.repository.findOne(id);

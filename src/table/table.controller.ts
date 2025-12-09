@@ -20,6 +20,11 @@ export class TableController {
     return this.tableService.create(createTableDto);
   }
 
+  @Post('/order')
+  createWithOrder(@Body() createTableDto: CreateTableDto) {
+    return this.tableService.createWithOrder(createTableDto);
+  }
+
   @Get()
   findAll() {
     return this.tableService.findAll();

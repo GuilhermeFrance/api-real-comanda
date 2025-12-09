@@ -17,7 +17,7 @@ export class TableRepository {
   async createTableWithOrder(data: {
     name: string;
     key?: string;
-    userId?: number;
+    userId?: number | null;
   }) {
     return await this.prisma.$transaction(async (prisma) => {
       const order = await prisma.order.create({
