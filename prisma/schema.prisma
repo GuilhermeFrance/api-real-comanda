@@ -29,8 +29,8 @@ model Table {
   id            Int     @id @default(autoincrement())
   name          String  @unique
   key           String  @unique
-  attendantUser User    @relation(fields: [userId], references: [id])
-  userId        Int
+  attendantUser User?    @relation(fields: [userId], references: [id])
+  userId        Int?
   isBusy        Boolean @default(false)
   order         Order   @relation(fields: [orderId], references: [id])
   orderId       Int     @unique

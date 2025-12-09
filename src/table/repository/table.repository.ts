@@ -14,6 +14,31 @@ export class TableRepository {
     });
   }
 
+  async createTableWithOrder(data: {
+    name: string;
+    key?: string;
+    userId?: number;
+  }) {
+    return await this.prisma.$transaction(async (prisma) => {
+      const order = await prisma.order.create({
+        data: {
+          name: `ORder-${Date.now()}`,
+          key: `key-${Date.now()}`,
+          price: 0,
+        },
+      });
+      const table = await prisma.table.create({
+        data: {
+          name: data.name,
+          key: data.key || `mesa-${Date.now()}`,
+          userId: data.userId || null,
+          orderId: order.id,
+        },
+      });
+      return { table, order };
+    });
+  }
+
   async findAll(): Promise<TableEntity[]> {
     return await this.prisma.table.findMany();
   }

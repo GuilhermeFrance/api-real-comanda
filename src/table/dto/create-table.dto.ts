@@ -4,7 +4,7 @@ export class CreateTableDto implements Table {
   name: string;
   id: number;
   key: string;
-  userId: number;
+  userId: number | null;
   isBusy: boolean;
   orderId: number;
 }
