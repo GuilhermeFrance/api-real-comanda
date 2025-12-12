@@ -40,9 +40,10 @@ model Order {
   id     Int          @id @default(autoincrement())
   name   String       @unique
   key    String       @unique
-  price  Decimal
   tables Table?
   items  OrderItems[]
+  createdAt DateTime @default(now())
+  closedAt DateTime?
 }
 
 model OrderItems {
@@ -52,6 +53,7 @@ model OrderItems {
   products Products @relation(fields: [productsId], references: [id])
   quantity   Int
   order      Order    @relation(fields: [orderId], references: [id])
+  createdAt DateTime @default(now())
 
 }
 

@@ -35,7 +35,7 @@ export class OrderItensController {
     return this.orderItensService.findOne(+id);
   }
 
-  @Patch(':id')
+  @Patch('add/:id')
   update(
     @Param('id') id: string,
     @Body() updateOrderItenDto: UpdateOrderItenDto,

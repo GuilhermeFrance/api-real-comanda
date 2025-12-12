@@ -54,11 +54,12 @@ export class TableRepository {
     userId?: number | null;
   }) {
     return await this.prisma.$transaction(async (prisma) => {
+      const orderName = `Comanda - ${data.name}`;
+      const orderKey = `Comanda -${data.key || Date.now()}`;
       const order = await prisma.order.create({
         data: {
-          name: `ORder-${Date.now()}`,
-          key: `key-${Date.now()}`,
-          price: 0,
+          name: orderName,
+          key: orderKey,
         },
       });
       const table = await prisma.table.create({
@@ -69,6 +70,7 @@ export class TableRepository {
           orderId: order.id,
         },
       });
+
       return { table, order };
     });
   }

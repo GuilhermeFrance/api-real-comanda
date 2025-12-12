@@ -46,7 +46,20 @@ export class OrderItensRepository {
   }
 
   async findAll(): Promise<OrderItensEntity[]> {
-    return await this.prisma.orderItems.findMany();
+    return await this.prisma.orderItems.findMany({
+      include: {
+        order: {
+          include: {
+            items: {
+              select: {
+                products: true,
+                quantity: true,
+              },
+            },
+          },
+        },
+      },
+    });
   }
 
   async findOne(id: number): Promise<OrderItensEntity> {
