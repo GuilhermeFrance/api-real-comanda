@@ -29,7 +29,7 @@ model Table {
   id            Int     @id @default(autoincrement())
   name          String  @unique
   key           String  @unique
-  attendantUser User?    @relation(fields: [userId], references: [id])
+  attendantUser User?   @relation(fields: [userId], references: [id])
   userId        Int?
   isBusy        Boolean @default(false)
   order         Order   @relation(fields: [orderId], references: [id])
@@ -37,30 +37,38 @@ model Table {
 }
 
 model Order {
-  id     Int          @id @default(autoincrement())
-  name   String       @unique
-  key    String       @unique
-  tables Table?
-  items  OrderItems[]
-  createdAt DateTime @default(now())
-  closedAt DateTime?
+  id        Int          @id @default(autoincrement())
+  name      String       @unique
+  key       String       @unique
+  tables    Table?
+  items     OrderItems[]
+  createdAt DateTime     @default(now())
+  closedAt  DateTime?
 }
 
 model OrderItems {
   id         Int      @id @default(autoincrement())
   orderId    Int
   productsId Int
-  products Products @relation(fields: [productsId], references: [id])
+  products   Products @relation(fields: [productsId], references: [id])
   quantity   Int
   order      Order    @relation(fields: [orderId], references: [id])
-  createdAt DateTime @default(now())
-
+  createdAt  DateTime @default(now())
 }
 
 model Products {
-  id         Int          @id @default(autoincrement())
-  name       String       @unique
-  key        String       @unique
-  price      Decimal
-  orderItems OrderItems[]
+  id            Int          @id @default(autoincrement())
+  name          String       @unique
+  key           String       @unique
+  price         Decimal
+  orderItems    OrderItems[]
+  typeKey       ProductType  @relation(fields: [productTypeId], references: [id])
+  productTypeId Int
+}
+
+model ProductType {
+  id       Int        @id @default(autoincrement())
+  name     String     @unique
+  key      String     @unique
+  products Products[]
 }
