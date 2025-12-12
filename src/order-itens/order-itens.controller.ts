@@ -20,6 +20,11 @@ export class OrderItensController {
     return this.orderItensService.create(createOrderItenDto);
   }
 
+  @Get('total/order/:id')
+  calculate(@Param('id') id: string) {
+    return this.orderItensService.calculate(+id);
+  }
+
   @Get()
   findAll() {
     return this.orderItensService.findAll();
@@ -28,11 +33,6 @@ export class OrderItensController {
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.orderItensService.findOne(+id);
-  }
-
-  @Get('total/:id')
-  calculate(@Param('id') id: string) {
-    return this.orderItensService.calculate(+id);
   }
 
   @Patch(':id')

@@ -14,6 +14,40 @@ export class TableRepository {
     });
   }
 
+  async returnWithPrice() {
+    const tables = await this.prisma.table.findMany({
+      include: {
+        order: {
+          include: {
+            items: {
+              include: {
+                products: {
+                  select: {
+                    price: true,
+                    name: true,
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+    });
+
+    return tables.map((table) => ({
+      ...table,
+      order: table.order
+        ? {
+            id: table.order.id,
+            name: table.order.name,
+            items: table.order.items,
+            totalPrice: table.order.items.reduce((total, item) => {
+              return total + item.products.price.toNumber() * item.quantity;
+            }, 0),
+          }
+        : null,
+    }));
+  }
   async createTableWithOrder(data: {
     name: string;
     key?: string;

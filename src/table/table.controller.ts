@@ -30,6 +30,11 @@ export class TableController {
     return this.tableService.findAll();
   }
 
+  @Get('infos')
+  getAllWithPrice() {
+    return this.tableService.returnWithPrice();
+  }
+
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.tableService.findOne(+id);

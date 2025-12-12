@@ -17,6 +17,7 @@ export class OrderItensRepository {
             products: {
               select: {
                 price: true,
+                name: true,
               },
             },
           },
@@ -30,6 +31,9 @@ export class OrderItensRepository {
     const total = orderWithItens.items.reduce((accumulator, item) => {
       const productPrice = item.products.price.toNumber();
       const itemSubtotal = productPrice * item.quantity;
+      console.log(
+        `Item: produto=${item.productsId}, qty=${item.quantity}, preço=${productPrice}, subtotal=${itemSubtotal}`,
+      );
       return accumulator + itemSubtotal;
     }, 0);
     return total;

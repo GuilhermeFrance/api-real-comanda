@@ -5,4 +5,5 @@ export class CreateOrderItenDto implements OrderItems {
   orderId: number;
   productsId: number;
   quantity: number;
+  items: [];
 }

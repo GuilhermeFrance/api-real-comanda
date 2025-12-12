@@ -13,6 +13,10 @@ export class TableService {
   findAll() {
     return this.repository.findAll();
   }
+  returnWithPrice() {
+    return this.repository.returnWithPrice();
+  }
+
   createWithOrder(createTableDto: CreateTableDto) {
     return this.repository.createTableWithOrder(createTableDto);
   }
