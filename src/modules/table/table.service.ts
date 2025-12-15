@@ -10,6 +10,10 @@ export class TableService {
     return this.repository.create(createTableDto);
   }
 
+  finalizeTable(id: number, updateTableDto: UpdateTableDto) {
+    return this.repository.finalizeTable(id, updateTableDto);
+  }
+
   findAll() {
     return this.repository.findAll();
   }

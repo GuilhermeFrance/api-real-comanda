@@ -20,6 +20,13 @@ export class TableController {
     return this.tableService.create(createTableDto);
   }
 
+  @Patch('/finalize/:id')
+  finalizeTable(
+    @Param('id') id: string,
+    @Body() updateTableDto: UpdateTableDto,
+  ) {
+    return this.tableService.finalizeTable(+id, updateTableDto);
+  }
   @Post('/order')
   createWithOrder(@Body() createTableDto: CreateTableDto) {
     return this.tableService.createWithOrder(createTableDto);
