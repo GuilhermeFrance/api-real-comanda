@@ -25,12 +25,32 @@ export class TableRepository {
   }
 
   async finalizeTable(id: number, updateTableDto: UpdateTableDto) {
-    return this.prisma.table.update({
+    const table = await this.prisma.table.findUnique({
       where: { id },
-      data: {
-        ...updateTableDto,
-        isBusy: false,
+      select: {
+        orderId: true,
       },
+    });
+    if (!table) {
+      throw new NotFoundException('Table not found');
+    }
+
+    return await this.prisma.$transaction(async (prisma) => {
+      await prisma.order.update({
+        where: { id: table.orderId },
+        data: {
+          statusKey: 'FECHADO',
+          closedAt: new Date(),
+        },
+      });
+
+      return await this.prisma.table.update({
+        where: { id },
+        data: {
+          ...updateTableDto,
+          isBusy: false,
+        },
+      });
     });
   }
 
@@ -97,9 +117,23 @@ export class TableRepository {
 
   async tableHistory(): Promise<TableEntity[]> {
     const history = await this.prisma.table.findMany({
-      where: {},
+      where: {
+        order: {
+          is: {
+            status: {
+              is: {
+                key: 'FECHADO',
+              },
+            },
+          },
+        },
+      },
       include: {
-        order: true,
+        order: {
+          include: {
+            status: true,
+          },
+        },
       },
     });
     return history;
