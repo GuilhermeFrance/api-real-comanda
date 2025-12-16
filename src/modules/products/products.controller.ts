@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Delete,
+  Query,
 } from '@nestjs/common';
 import { ProductsService } from './products.service';
 import { CreateProductDto } from './dto/create-product.dto';
@@ -23,6 +24,14 @@ export class ProductsController {
   @Get()
   findAll() {
     return this.productsService.findAll();
+  }
+
+  @Get('types')
+  getByType(
+    @Query('typeKey') typeKey: string,
+    @Query('filter') filter: string,
+  ) {
+    return this.productsService.getByType(typeKey, filter);
   }
 
   @Get(':id')

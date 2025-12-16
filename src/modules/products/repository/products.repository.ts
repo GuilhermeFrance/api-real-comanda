@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from 'src/shared/database/prisma/prisma.service';
 import { CreateProductDto } from '../dto/create-product.dto';
@@ -12,6 +14,25 @@ export class ProductRepository {
     return await this.prisma.products.create({
       data,
     });
+  }
+
+  async getByType(typeKey: string, filter?: string): Promise<ProductEntity[]> {
+    const where: any = {
+      productTypeKey: typeKey,
+    };
+
+    if (filter && filter.trim()) {
+      where.OR = [
+        { name: { contains: filter.trim(), mode: 'insensitive' } },
+        { key: { contains: filter.trim(), mode: 'insensitive' } },
+      ];
+    }
+
+    const products = await this.prisma.products.findMany({
+      where: where,
+    });
+
+    return products;
   }
 
   async getPrice(id: number): Promise<number> {

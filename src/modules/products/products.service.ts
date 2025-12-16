@@ -11,6 +11,10 @@ export class ProductsService {
     return this.repository.create(createProductDto);
   }
 
+  getByType(typeKey: string, filter: string) {
+    return this.repository.getByType(typeKey, filter);
+  }
+
   getPrice(id: number) {
     return this.repository.getPrice(id);
   }
