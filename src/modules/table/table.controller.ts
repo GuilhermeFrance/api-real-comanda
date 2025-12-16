@@ -65,6 +65,11 @@ export class TableController {
     return this.tableService.update(+id, updateTableDto);
   }
 
+  @Patch('/payment/:id')
+  choicePayment(@Param('id') id: string, @Body() body: { paymentKey: string }) {
+    return this.tableService.choicePayment(+id, body.paymentKey);
+  }
+
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.tableService.remove(+id);

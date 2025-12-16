@@ -18,6 +18,10 @@ export class TableService {
     return this.repository.finalizeTable(id, updateTableDto);
   }
 
+  choicePayment(id: number, paymentKey: string) {
+    return this.repository.choicePayment(id, paymentKey);
+  }
+
   findAll() {
     return this.repository.findAll();
   }

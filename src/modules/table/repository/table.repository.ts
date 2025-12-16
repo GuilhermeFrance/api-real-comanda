@@ -54,6 +54,25 @@ export class TableRepository {
     });
   }
 
+  async choicePayment(tableId: number, paymentKey: string) {
+    const table = await this.prisma.table.findUnique({
+      where: { id: tableId },
+      select: { orderId: true },
+    });
+
+    if (!table) {
+      throw new NotFoundException('Table not found');
+    }
+
+    // Atualiza o pagamento da order
+    return await this.prisma.order.update({
+      where: { id: table.orderId },
+      data: {
+        paymentKey: paymentKey,
+      },
+    });
+  }
+
   async returnWithPrice() {
     const tables = await this.prisma.table.findMany({
       include: {
@@ -131,7 +150,16 @@ export class TableRepository {
       include: {
         order: {
           include: {
-            status: true,
+            items: {
+              include: {
+                products: {
+                  select: {
+                    price: true,
+                    name: true,
+                  },
+                },
+              },
+            },
           },
         },
       },
