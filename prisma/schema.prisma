@@ -37,15 +37,17 @@ model Table {
 }
 
 model Order {
-  id        Int          @id @default(autoincrement())
-  name      String       @unique
-  key       String       @unique
-  tables    Table?
-  items     OrderItems[]
-  payment PaymentType? @relation(fields: [paymentKey], references: [key])
+  id         Int          @id @default(autoincrement())
+  name       String       @unique
+  key        String       @unique
+  tables     Table?
+  items      OrderItems[]
+  payment    PaymentType? @relation(fields: [paymentKey], references: [key])
   paymentKey String?
-  createdAt DateTime     @default(now())
-  closedAt  DateTime? 
+  createdAt  DateTime     @default(now())
+  closedAt   DateTime?
+  status     Status?      @relation(fields: [statusKey], references: [key])
+  statusKey  String?
 }
 
 model OrderItems {
@@ -66,7 +68,6 @@ model Products {
   orderItems     OrderItems[]
   typeKey        ProductType  @relation(fields: [productTypeKey], references: [key])
   productTypeKey String
-  
 }
 
 model ProductType {
@@ -77,8 +78,15 @@ model ProductType {
 }
 
 model PaymentType {
-  id   Int    @id @default(autoincrement())
-  name String @unique
-  key  String @unique
+  id       Int     @id @default(autoincrement())
+  name     String  @unique
+  key      String  @unique
   products Order[]
+}
+
+model Status {
+  id     Int     @id @default(autoincrement())
+  name   String  @unique
+  key    String  @unique
+  orders Order[]
 }

@@ -40,6 +40,11 @@ export class TableController {
     return this.tableService.createWithOrder(createTableDto);
   }
 
+  @Get('/history')
+  tableHistory() {
+    return this.tableService.tableHistory();
+  }
+
   @Get()
   findAll() {
     return this.tableService.findAll();

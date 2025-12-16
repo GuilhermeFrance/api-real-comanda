@@ -95,6 +95,16 @@ export class TableRepository {
     });
   }
 
+  async tableHistory(): Promise<TableEntity[]> {
+    const history = await this.prisma.table.findMany({
+      where: {},
+      include: {
+        order: true,
+      },
+    });
+    return history;
+  }
+
   async findAll(): Promise<TableEntity[]> {
     return await this.prisma.table.findMany();
   }

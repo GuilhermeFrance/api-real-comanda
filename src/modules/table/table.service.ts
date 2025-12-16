@@ -29,6 +29,10 @@ export class TableService {
     return this.repository.createTableWithOrder(createTableDto);
   }
 
+  tableHistory() {
+    return this.repository.tableHistory();
+  }
+
   findOne(id: number) {
     return this.repository.findOne(id);
   }
