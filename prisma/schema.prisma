@@ -57,13 +57,13 @@ model OrderItems {
 }
 
 model Products {
-  id            Int          @id @default(autoincrement())
-  name          String       @unique
-  key           String       @unique
-  price         Decimal
-  orderItems    OrderItems[]
-  typeKey       ProductType  @relation(fields: [productTypeId], references: [id])
-  productTypeId Int
+  id             Int          @id @default(autoincrement())
+  name           String       @unique
+  key            String       @unique
+  price          Decimal
+  orderItems     OrderItems[]
+  typeKey        ProductType  @relation(fields: [productTypeKey], references: [key])
+  productTypeKey String
 }
 
 model ProductType {

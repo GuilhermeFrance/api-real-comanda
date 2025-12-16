@@ -13,7 +13,17 @@ import { ProductTypeModule } from './modules/product-type/product-type.module';
 import { AuthModule } from './auth/auth.module';
 
 @Module({
-  imports: [ConfigModule.forRoot(), AuthModule, UsersModule, BadgesModule, ProductsModule, OrderModule, TableModule, OrderItensModule, ProductTypeModule],
+  imports: [
+    ConfigModule.forRoot(),
+    AuthModule,
+    UsersModule,
+    BadgesModule,
+    ProductsModule,
+    OrderModule,
+    TableModule,
+    OrderItensModule,
+    ProductTypeModule,
+  ],
   controllers: [AppController],
   providers: [AppService, PrismaService],
 })
