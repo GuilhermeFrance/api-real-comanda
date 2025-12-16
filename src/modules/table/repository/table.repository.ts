@@ -14,6 +14,16 @@ export class TableRepository {
     });
   }
 
+  async initializeTable(id: number, updateTableDto: UpdateTableDto) {
+    return this.prisma.table.update({
+      where: { id },
+      data: {
+        ...updateTableDto,
+        isBusy: true,
+      },
+    });
+  }
+
   async finalizeTable(id: number, updateTableDto: UpdateTableDto) {
     return this.prisma.table.update({
       where: { id },

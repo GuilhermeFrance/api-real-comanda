@@ -1,5 +1,13 @@
+import { OrderItensEntity } from '../../order-itens/entities/order-iten.entity';
+import { TableEntity } from '../../table/entities/table.entity';
+
 export class OrderEntity {
-  name: string;
   id: number;
+  name: string;
   key: string;
+  createdAt: Date;
+  closedAt: Date | null;
+  paymentKey: string | null;
+  items: OrderItensEntity[];
+  tables: TableEntity | null;
 }

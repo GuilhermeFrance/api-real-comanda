@@ -10,6 +10,10 @@ export class TableService {
     return this.repository.create(createTableDto);
   }
 
+  initializeTable(id: number, update: UpdateTableDto) {
+    return this.repository.initializeTable(id, update);
+  }
+
   finalizeTable(id: number, updateTableDto: UpdateTableDto) {
     return this.repository.finalizeTable(id, updateTableDto);
   }

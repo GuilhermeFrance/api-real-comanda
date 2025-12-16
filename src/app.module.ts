@@ -11,6 +11,7 @@ import { TableModule } from './modules/table/table.module';
 import { OrderItensModule } from './modules/order-itens/order-itens.module';
 import { ProductTypeModule } from './modules/product-type/product-type.module';
 import { AuthModule } from './auth/auth.module';
+import { PaymentTypeModule } from './modules/payment-type/payment-type.module';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { AuthModule } from './auth/auth.module';
     TableModule,
     OrderItensModule,
     ProductTypeModule,
+    PaymentTypeModule,
   ],
   controllers: [AppController],
   providers: [AppService, PrismaService],

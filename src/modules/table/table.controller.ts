@@ -20,6 +20,14 @@ export class TableController {
     return this.tableService.create(createTableDto);
   }
 
+  @Patch('initialize/:id')
+  initializaeTable(
+    @Param('id') id: string,
+    @Body() updateTableDto: UpdateTableDto,
+  ) {
+    return this.tableService.initializeTable(+id, updateTableDto);
+  }
+
   @Patch('/finalize/:id')
   finalizeTable(
     @Param('id') id: string,

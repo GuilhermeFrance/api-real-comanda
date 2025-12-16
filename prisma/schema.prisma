@@ -42,8 +42,10 @@ model Order {
   key       String       @unique
   tables    Table?
   items     OrderItems[]
+  payment PaymentType? @relation(fields: [paymentKey], references: [key])
+  paymentKey String?
   createdAt DateTime     @default(now())
-  closedAt  DateTime?
+  closedAt  DateTime? 
 }
 
 model OrderItems {
@@ -64,6 +66,7 @@ model Products {
   orderItems     OrderItems[]
   typeKey        ProductType  @relation(fields: [productTypeKey], references: [key])
   productTypeKey String
+  
 }
 
 model ProductType {
@@ -71,4 +74,11 @@ model ProductType {
   name     String     @unique
   key      String     @unique
   products Products[]
+}
+
+model PaymentType {
+  id   Int    @id @default(autoincrement())
+  name String @unique
+  key  String @unique
+  products Order[]
 }

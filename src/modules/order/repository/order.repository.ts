@@ -11,16 +11,29 @@ export class OrderRepository {
   async create(data: CreateOrderDto): Promise<OrderEntity> {
     return await this.prisma.order.create({
       data,
+      include: {
+        items: true,
+        tables: true,
+      },
     });
   }
 
   async findAll(): Promise<OrderEntity[]> {
-    return await this.prisma.order.findMany();
+    return await this.prisma.order.findMany({
+      include: {
+        items: true,
+        tables: true,
+      },
+    });
   }
 
   async findOne(id: number): Promise<OrderEntity> {
     const order = await this.prisma.order.findUnique({
       where: { id },
+      include: {
+        items: true,
+        tables: true,
+      },
     });
     if (!order) {
       throw new NotFoundException('Order not found');
@@ -38,6 +51,10 @@ export class OrderRepository {
     return this.prisma.order.update({
       where: { id },
       data,
+      include: {
+        items: true,
+        tables: true,
+      },
     });
   }
 
@@ -50,6 +67,10 @@ export class OrderRepository {
     }
     return this.prisma.order.delete({
       where: { id },
+      include: {
+        items: true,
+        tables: true,
+      },
     });
   }
 }
