@@ -1,26 +1,29 @@
 import { Injectable } from '@nestjs/common';
 import { CreatePaymentTypeDto } from './dto/create-payment-type.dto';
 import { UpdatePaymentTypeDto } from './dto/update-payment-type.dto';
+import { PaymentTypeRepository } from './repository/payment-type.repository';
 
 @Injectable()
 export class PaymentTypeService {
+  constructor(private readonly repository: PaymentTypeRepository) {}
+
   create(createPaymentTypeDto: CreatePaymentTypeDto) {
-    return 'This action adds a new paymentType';
+    return this.repository.create(createPaymentTypeDto);
   }
 
   findAll() {
-    return `This action returns all paymentType`;
+    return this.repository.findAll();
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} paymentType`;
+    return this.repository.findOne(id);
   }
 
   update(id: number, updatePaymentTypeDto: UpdatePaymentTypeDto) {
-    return `This action updates a #${id} paymentType`;
+    return this.repository.update(id, updatePaymentTypeDto);
   }
 
   remove(id: number) {
-    return `This action removes a #${id} paymentType`;
+    return this.repository.remove(id);
   }
 }
