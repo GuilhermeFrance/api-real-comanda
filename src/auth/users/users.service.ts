@@ -18,6 +18,10 @@ export class UsersService {
     return this.repository.findOne(id);
   }
 
+  findByCpf(cpf: string) {
+    return this.repository.findByCpf(cpf);
+  }
+
   update(id: number, dto: UpdateUserDto) {
     return this.repository.update(id, dto);
   }
