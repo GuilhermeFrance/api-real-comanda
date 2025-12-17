@@ -1,5 +1,5 @@
 export class BadgeEntity {
-  name: string;
   id: number;
+  name: string;
   key: string;
 }

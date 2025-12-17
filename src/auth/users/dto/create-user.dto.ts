@@ -5,5 +5,6 @@ export class CreateUserDto implements User {
   firstName: string;
   surname: string;
   cpf: string;
+  password: string;
   badgesKey: string | null;
 }

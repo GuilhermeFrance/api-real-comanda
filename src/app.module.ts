@@ -3,7 +3,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
 import { PrismaService } from './shared/database/prisma/prisma.service';
-import { UsersModule } from './modules/users/users.module';
+import { UsersModule } from './auth/users/users.module';
 import { BadgesModule } from './modules/badges/badges.module';
 import { ProductsModule } from './modules/products/products.module';
 import { OrderModule } from './modules/order/order.module';

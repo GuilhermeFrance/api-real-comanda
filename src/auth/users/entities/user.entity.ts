@@ -3,5 +3,6 @@ export class UserEntity {
   firstName: string;
   surname: string;
   cpf: string;
+  password: string;
   badgesKey: string | null;
 }

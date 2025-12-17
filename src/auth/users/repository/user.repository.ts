@@ -36,7 +36,12 @@ export class UserRepository {
     }
     return this.prisma.user.update({
       where: { id },
-      data,
+      data: {
+        firstName: data.firstName,
+        surname: data.surname,
+        cpf: data.cpf,
+        badgesKey: data.badgesKey ?? null,
+      },
     });
   }
 
