@@ -10,14 +10,12 @@ import { OrderModule } from './modules/order/order.module';
 import { TableModule } from './modules/table/table.module';
 import { OrderItensModule } from './modules/order-itens/order-itens.module';
 import { ProductTypeModule } from './modules/product-type/product-type.module';
-import { AuthModule } from './auth/auth.module';
 import { PaymentTypeModule } from './modules/payment-type/payment-type.module';
 import { StatusModule } from './modules/status/status.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot(),
-    AuthModule,
     UsersModule,
     BadgesModule,
     ProductsModule,

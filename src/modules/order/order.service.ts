@@ -10,6 +10,10 @@ export class OrderService {
     return this.repository.create(createOrderDto);
   }
 
+  orderHistory() {
+    return this.repository.orderHistory();
+  }
+
   findAll() {
     return this.repository.findAll();
   }

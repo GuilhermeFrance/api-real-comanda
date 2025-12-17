@@ -64,7 +64,6 @@ export class TableRepository {
       throw new NotFoundException('Table not found');
     }
 
-    // Atualiza o pagamento da order
     return await this.prisma.order.update({
       where: { id: table.orderId },
       data: {
@@ -150,6 +149,11 @@ export class TableRepository {
       include: {
         order: {
           include: {
+            payment: {
+              select: {
+                name: true,
+              },
+            },
             items: {
               include: {
                 products: {

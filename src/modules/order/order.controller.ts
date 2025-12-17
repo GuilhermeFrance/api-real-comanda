@@ -20,6 +20,11 @@ export class OrderController {
     return this.orderService.create(createOrderDto);
   }
 
+  @Get('/history')
+  orderHistory() {
+    return this.orderService.orderHistory();
+  }
+
   @Get()
   findAll() {
     return this.orderService.findAll();

@@ -18,6 +18,41 @@ export class OrderRepository {
     });
   }
 
+  async orderHistory() {
+    const order = await this.prisma.order.findMany({
+      where: {
+        status: {
+          is: {
+            key: 'FECHADO',
+          },
+        },
+      },
+      include: {
+        items: {
+          include: {
+            products: {
+              select: {
+                price: true,
+                name: true,
+              },
+            },
+          },
+        },
+      },
+    });
+
+    return order.map((order) => ({
+      ...order,
+      price: order
+        ? {
+            total: order.items.reduce((total, item) => {
+              return total + item.products.price.toNumber() * item.quantity;
+            }, 0),
+          }
+        : null,
+    }));
+  }
+
   async findAll(): Promise<OrderEntity[]> {
     return await this.prisma.order.findMany({
       include: {
