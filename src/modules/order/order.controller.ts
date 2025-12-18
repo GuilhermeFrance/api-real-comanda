@@ -30,6 +30,11 @@ export class OrderController {
     return this.orderService.findAll();
   }
 
+  @Patch('/payment/:id')
+  choicePayment(@Param('id') id: string, @Body() data: string) {
+    return this.orderService.choicePayment(+id, data);
+  }
+
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.orderService.findOne(+id);

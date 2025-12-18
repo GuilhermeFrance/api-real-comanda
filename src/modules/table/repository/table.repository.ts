@@ -29,6 +29,54 @@ export class TableRepository {
       where: { id },
       select: {
         orderId: true,
+        order: {
+          select: {
+            name: true,
+            key: true,
+          },
+        },
+      },
+    });
+    if (!table) {
+      throw new NotFoundException('Table not found');
+    }
+
+    return await this.prisma.$transaction(async (prisma) => {
+      await prisma.order.update({
+        where: { id: table.orderId },
+        data: {
+          statusKey: 'FECHADO',
+          closedAt: new Date(),
+        },
+      });
+
+      const newOrder = this.prisma.order.create({
+        data: {
+          name: table.order.name,
+          key: table.order.key,
+          statusKey: 'ABERTO',
+        },
+      });
+
+      return await this.prisma.table.update({
+        where: { id },
+        data: {
+          ...updateTableDto,
+          isBusy: false,
+          orderId: (await newOrder).id,
+        },
+      });
+    });
+  }
+
+  async finalizeTableWithAndCreateNewOrder(
+    id: number,
+    updateTableDto: UpdateTableDto,
+  ) {
+    const table = await this.prisma.table.findUnique({
+      where: { id },
+      select: {
+        orderId: true,
       },
     });
     if (!table) {

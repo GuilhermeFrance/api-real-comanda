@@ -39,8 +39,8 @@ model Table {
 
 model Order {
   id         Int          @id @default(autoincrement())
-  name       String       @unique
-  key        String       @unique
+  name       String?       
+  key        String?       
   tables     Table?
   items      OrderItems[]
   payment    PaymentType? @relation(fields: [paymentKey], references: [key])

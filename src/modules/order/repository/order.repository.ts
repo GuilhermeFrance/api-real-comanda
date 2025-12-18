@@ -62,6 +62,23 @@ export class OrderRepository {
     });
   }
 
+  async choicePayment(id: number, data: UpdateOrderDto) {
+    const table = await this.prisma.order.findUnique({
+      where: { id },
+    });
+
+    if (!table) {
+      throw new NotFoundException('Table not found');
+    }
+
+    return await this.prisma.order.update({
+      where: { id },
+      data: {
+        paymentKey: data.name,
+      },
+    });
+  }
+
   async findOne(id: number): Promise<OrderEntity> {
     const order = await this.prisma.order.findUnique({
       where: { id },

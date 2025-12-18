@@ -18,6 +18,10 @@ export class OrderService {
     return this.repository.findAll();
   }
 
+  choicePayment(id: number, data: string) {
+    return this.repository.choicePayment(id, data);
+  }
+
   findOne(id: number) {
     return this.repository.findOne(id);
   }
