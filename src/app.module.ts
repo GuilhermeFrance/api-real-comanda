@@ -12,6 +12,7 @@ import { OrderItensModule } from './modules/order-itens/order-itens.module';
 import { ProductTypeModule } from './modules/product-type/product-type.module';
 import { PaymentTypeModule } from './modules/payment-type/payment-type.module';
 import { StatusModule } from './modules/status/status.module';
+import { AuthenticationModule } from './auth/authentication/authentication.module';
 
 @Module({
   imports: [
@@ -25,6 +26,7 @@ import { StatusModule } from './modules/status/status.module';
     ProductTypeModule,
     PaymentTypeModule,
     StatusModule,
+    AuthenticationModule,
   ],
   controllers: [AppController],
   providers: [AppService, PrismaService],
