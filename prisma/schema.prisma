@@ -39,13 +39,14 @@ model Table {
 
 model Order {
   id         Int          @id @default(autoincrement())
-  name       String?       
-  key        String?       
+  name       String?
+  key        String?
   tables     Table?
   items      OrderItems[]
   payment    PaymentType? @relation(fields: [paymentKey], references: [key])
   paymentKey String?
   createdAt  DateTime     @default(now())
+  openedAt   DateTime?
   closedAt   DateTime?
   status     Status?      @relation(fields: [statusKey], references: [key])
   statusKey  String?

@@ -62,7 +62,7 @@ export class OrderRepository {
     });
   }
 
-  async choicePayment(id: number, data: UpdateOrderDto) {
+  async choicePayment(id: number, paymentKey: string) {
     const table = await this.prisma.order.findUnique({
       where: { id },
     });
@@ -73,9 +73,7 @@ export class OrderRepository {
 
     return await this.prisma.order.update({
       where: { id },
-      data: {
-        paymentKey: data.name,
-      },
+      data: { paymentKey: paymentKey },
     });
   }
 

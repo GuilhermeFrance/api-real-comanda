@@ -4,9 +4,10 @@ import { TableEntity } from '../../table/entities/table.entity';
 
 export class OrderEntity {
   id: number;
-  name: string;
-  key: string;
+  name: string | null;
+  key: string | null;
   createdAt: Date;
+  openedAt: Date | null;
   closedAt: Date | null;
   paymentKey: string | null;
   items?: OrderItensEntity[];

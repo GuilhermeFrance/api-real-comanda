@@ -15,12 +15,28 @@ export class TableRepository {
   }
 
   async initializeTable(id: number, updateTableDto: UpdateTableDto) {
-    return this.prisma.table.update({
+    const table = await this.prisma.table.findUnique({
       where: { id },
-      data: {
-        ...updateTableDto,
-        isBusy: true,
+      select: {
+        orderId: true,
       },
+    });
+
+    return await this.prisma.$transaction(async (prisma) => {
+      await prisma.table.update({
+        where: { id },
+        data: {
+          ...updateTableDto,
+          isBusy: true,
+        },
+      });
+
+      return prisma.order.update({
+        where: { id: table?.orderId },
+        data: {
+          openedAt: new Date(),
+        },
+      });
     });
   }
 
