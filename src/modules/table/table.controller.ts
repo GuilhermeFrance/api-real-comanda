@@ -10,6 +10,8 @@ import {
 import { TableService } from './table.service';
 import { CreateTableDto } from './dto/create-table.dto';
 import { UpdateTableDto } from './dto/update-table.dto';
+import { CurrentUser } from 'src/auth/decorators/current-user.decorator';
+import type { User } from 'generated/prisma/client';
 
 @Controller('table')
 export class TableController {
@@ -71,7 +73,7 @@ export class TableController {
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.tableService.remove(+id);
+  remove(@Param('id') id: string, @CurrentUser() user: User) {
+    return this.tableService.remove(+id, user);
   }
 }

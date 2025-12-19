@@ -1,11 +1,16 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { CreateTableDto } from './dto/create-table.dto';
 import { UpdateTableDto } from './dto/update-table.dto';
 import { TableRepository } from './repository/table.repository';
+import { CaslAbilityService } from 'src/auth/casl/casl-ability/casl-ability.service';
+import { User } from 'generated/prisma/client';
 
 @Injectable()
 export class TableService {
-  constructor(private readonly repository: TableRepository) {}
+  constructor(
+    private readonly repository: TableRepository,
+    private readonly abilityService: CaslAbilityService,
+  ) {}
   create(createTableDto: CreateTableDto) {
     return this.repository.create(createTableDto);
   }
@@ -45,7 +50,14 @@ export class TableService {
     return this.repository.update(id, updateTableDto);
   }
 
-  remove(id: number) {
+  remove(id: number, currentUser: User) {
+    const ability = this.abilityService.createForUser(currentUser);
+
+    if (!ability.can('manage', 'all')) {
+      throw new UnauthorizedException(
+        'Seu usuário não tem permissão para esta ação',
+      );
+    }
     return this.repository.remove(id);
   }
 }
