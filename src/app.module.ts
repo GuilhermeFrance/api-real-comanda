@@ -13,10 +13,14 @@ import { ProductTypeModule } from './modules/product-type/product-type.module';
 import { PaymentTypeModule } from './modules/payment-type/payment-type.module';
 import { StatusModule } from './modules/status/status.module';
 import { AuthenticationModule } from './auth/authentication/authentication.module';
+import { APP_GUARD } from '@nestjs/core';
+import { JwtAuthGuard } from './auth/authentication/guards/jwt-auth.guard';
 
 @Module({
   imports: [
-    ConfigModule.forRoot(),
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
     UsersModule,
     BadgesModule,
     ProductsModule,
@@ -29,6 +33,13 @@ import { AuthenticationModule } from './auth/authentication/authentication.modul
     AuthenticationModule,
   ],
   controllers: [AppController],
-  providers: [AppService, PrismaService],
+  providers: [
+    AppService,
+    {
+      provide: APP_GUARD,
+      useClass: JwtAuthGuard,
+    },
+    PrismaService,
+  ],
 })
 export class AppModule {}

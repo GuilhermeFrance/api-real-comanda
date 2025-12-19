@@ -1,6 +1,8 @@
-import { Controller, Post, UseGuards } from '@nestjs/common';
+import { Controller, Post, Request, UseGuards } from '@nestjs/common';
 import { AuthenticationService } from './authentication.service';
 import { LocalAuthGuard } from './guards/local-auth.guards';
+import type { AuthRequest } from '../models/auth-request';
+import { IsPublic } from '../decorators/is-public-decorator';
 
 @Controller('authentication')
 export class AuthenticationController {
@@ -8,7 +10,8 @@ export class AuthenticationController {
 
   @Post('login')
   @UseGuards(LocalAuthGuard)
-  login() {
-    return this.authenticationService.login();
+  @IsPublic()
+  login(@Request() req: AuthRequest) {
+    return this.authenticationService.login(req.user);
   }
 }
