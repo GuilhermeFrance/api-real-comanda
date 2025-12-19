@@ -6,5 +6,5 @@ export class CreateUserDto implements User {
   surname: string;
   cpf: string;
   password: string;
-  badgesKey: string | null;
+  badgesKey: string;
 }

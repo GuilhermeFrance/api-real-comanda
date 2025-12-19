@@ -14,8 +14,8 @@ model User {
   surname   String
   cpf       String  @unique
   password  String
-  badge     Badge?  @relation(fields: [badgesKey], references: [key])
-  badgesKey String?
+  badge     Badge   @relation(fields: [badgesKey], references: [key])
+  badgesKey String  @default("funcionario")
   tables    Table[]
 }
 

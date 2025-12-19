@@ -1,6 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from 'src/shared/database/prisma/prisma.service';
 import { CreateUserDto } from '../dto/create-user.dto';
@@ -75,7 +72,7 @@ export class UserRepository {
         firstName: data.firstName,
         surname: data.surname,
         cpf: data.cpf,
-        badgesKey: data.badgesKey ?? null,
+        badgesKey: data.badgesKey,
       },
     });
   }
